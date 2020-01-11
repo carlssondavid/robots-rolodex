@@ -22,6 +22,11 @@ class App extends React.Component {
       .then(users => this.setState({ monsters: users }));
   }
 
+  // Since we use an arrow function, this will be bound to where we defined it in the first place.
+  handleChange = e => {
+    this.setState({ searchField: e.target.value });
+  };
+
   render() {
     // Destructuring the states in order to use filter on them
     const { monsters, searchField } = this.state;
@@ -31,9 +36,10 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <h1> Robots Rolodex </h1>
         <SearchBox
           placeholder="search robots"
-          handleChange={e => this.setState({ searchField: e.target.value })}
+          handleChange={this.handleChange}
         />
         <CardList monsters={filteredMonsters}></CardList>
       </div>
